@@ -16,9 +16,9 @@ This script:
 
 1. Opens **TripIt** in an automated browser
 2. Navigates through all your past trips on the TripIt website
-Uses a Python library called **Playwright** that opens/controls a Chrome window automatically on your behalf
+_Uses a Python library called **Playwright** that opens/controls a Chrome window automatically on your behalf_
 3. Uses **Anthropic Claude** for AI-powered data extraction of flight details from each trip page
-Uses **Haiku**, Claude’s fastest/cheapest model via the **Claude API**
+_Uses **Haiku**, Claude’s fastest/cheapest model via the **Claude API**_
 4. Exports everything to a CSV file compatible with OpenFlights
 
 ## Prerequisites
@@ -28,8 +28,8 @@ Before you start, you'll need:
 1. **Basic terminal/command line familiarity** (you'll run a few commands)
 2. **Python** installed on your computer
 3. **TripIt account** with flight history to export
-4. **Anthropic API key (**sign up for a developer account at [https://platform.claude.com](https://platform.claude.com/))
-    1. Note: You’ll need to buy some credits. The cost of running this script is only about $0.15 per 100 trips using Claude's cheapest model (Haiku), but I believe $5 is the minimum purchase.
+4. **Anthropic API key** (sign up for a developer account at [platform.claude.com](https://platform.claude.com/))
+    - Note: You’ll need to buy some credits. The cost of running this script is only about $0.15 per 100 trips using Claude's cheapest model (Haiku), but I believe $5 is the minimum purchase.
 
 ## Quick Start Guide
 
