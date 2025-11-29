@@ -29,7 +29,7 @@ import anthropic
 # ============================================================================
 
 # Your Claude API key - get it from: https://console.anthropic.com/settings/keys
-CLAUDE_API_KEY = "your-api-key-hereyour-api-key-here"
+CLAUDE_API_KEY = "your-api-key-here"
 
 # Output CSV file name
 OUTPUT_FILE = "flights_export.csv"
