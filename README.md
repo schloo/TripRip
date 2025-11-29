@@ -7,6 +7,8 @@
 🤓 **Beginner-friendly** (Runs in visible browser so you can see what it's doing; easy to spot-check data against TripIt)  
 🔒 **Safe** (Credentials never stored, just typed into the browser)  
 
+_Inspired by the challenges of executing Step 4 in [this Reddit post](https://www.reddit.com/r/flighty/comments/1n3kfpm/guide_how_i_finally_got_all_my_past_flights_into/) to get historical flights from TripIt into the (excellent) Flighty app._
+
 ## What this does
 
 This script:
