@@ -1,13 +1,13 @@
 # TripRip: TripIt Flight Exporter
 
-### A Python script that automatically extracts all your flight history from TripIt and exports it in an OpenFlights-compatible CSV format.
+**A Python script that automatically extracts all your flight history from TripIt and exports it in an OpenFlights-compatible CSV format.**
 
 💰 **Minimal cost** (~$0.15 per 100 trips)  
 ⏱️ **Minimal time** (~10 minutes for 100 trips, compared to hours manually copying and pasting your full flight history)  
 🤓 **Beginner-friendly** (Runs in visible browser so you can see what it's doing; easy to spot-check data against TripIt)  
 🔒 **Safe** (Credentials never stored, just typed into the browser)  
 
-## What This Does
+## What this does
 
 This script:
 
@@ -17,6 +17,17 @@ This script:
 3. Uses **Anthropic Claude** for AI-powered data extraction of flight details from each trip page
     > Uses **Haiku**, Claude’s fastest/cheapest model via the **Claude API**
 4. Exports everything to a CSV file compatible with OpenFlights
+
+## What you get: CSV Output Format
+
+The CSV uses OpenFlights schema with these required columns populated:
+
+- **Date**: Flight date (YYYY-MM-DD)
+- **From**: Origin airport (IATA code)
+- **To**: Destination airport (IATA code)
+- **Flight_Number**: Airline code + number (e.g., "UA794")
+
+Other OpenFlights columns (Airline, Distance, Seat, Class, etc.) are intentionally left blank. OpenFlights should populate Airline and Distance automatically based on the already-populated fields. You can fill in the rest manually if desired.
 
 ## Prerequisites
 
@@ -28,28 +39,33 @@ Before you start, you'll need:
 4. **Anthropic API key** (sign up for a developer account at [platform.claude.com](https://platform.claude.com/))
     - You’ll need to buy some credits. The cost of running this script is only about $0.15 per 100 trips using Claude's cheapest model (Haiku), but I believe $5 is the minimum purchase.
 
-## Quick Start Guide
 
-> ### 🤓 Vibe coding for the first time?
+# Quick Start Guide
+
+> ## New to vibe-coding?
 > 
-> Copy and paste this into any LLM (Claude, ChatGPT, etc.), attaching the script and quick start guide, to get help.
+> I expect non-technical folks will have questions on how to get this working. As someone who is not a software engineer by any means, here’s how I would approach using LLMs to help me out.
 > 
-> ```xml
-> I'm trying to use a Python script that exports flight history from TripIt. I have two documents:
+> ### Use LLMs to debug
+> Copy and paste this prompt into any LLM (Claude, ChatGPT, etc.), attaching the script and Quick Start Guide, to get help.
 > 
-> 1. The Python script (triprip.py)
-> 2. The quick start guide
+> > I'm trying to use a Python script that exports flight history from TripIt. I have two documents: (1) The Python script, and (2) The quick start guide.
+> > 
+> > Here's where I'm stuck: [setup, installation, running the script, etc.]
+> > 
+> > Here's what I see in the terminal: [paste any error messages here]
+> > 
+> > Here’s my setup: [Mac/Windows/Linux, python version, etc]
+> > 
+> > Can you help me understand what's wrong and what I should do next? Please explain in simple terms - I'm not very experienced with coding.
 > 
-> Here's where I'm stuck: [setup, installation, running the script, etc.]
-> 
-> Here's what I see in the terminal:
-> [PASTE ANY ERROR MESSAGES HERE]
-> 
-> My setup:
-> - Operating System: [Mac/Windows/Linux]
-> 
-> Can you help me understand what's wrong and what I should do next? Please explain in simple terms - I'm not very technical / experienced with coding.
-> ```
+> ### Other Tips
+> Once you are able to run the script, keep these things in mind:
+> - **First run**: Start with just watching it process 10-20 trips to verify accuracy
+> - **Leave it running**: Don't close the browser or interact with it while it's working
+> - **Spot check:** Use the table printed in terminal to verify a few random flights against TripIt
+> - **Re-runs**: Safe to run multiple times; it always processes all trips from scratch
+> - **Errors**: If individual trips fail, they're skipped with an error message (check terminal output)
 
 ### 1. Download Files
 
@@ -119,22 +135,4 @@ python triprip.py
 4. Script runs automatically (takes ~10 minutes for 100 trips)
 5. Table prints in terminal so you can spot-check it against your TripIt data
 6. CSV file saved as `flights_export.csv`
-
-> ### 🤓 Tips
-> - **First run**: Start with just watching it process 10-20 trips to verify accuracy
-> - **Leave it running**: Don't close the browser or interact with it while it's working
-> - **Spot check:** Use the table printed in terminal to verify a few random flights against TripIt
-> - **Re-runs**: Safe to run multiple times; it always processes all trips from scratch
-> - **Errors**: If individual trips fail, they're skipped with an error message (check terminal output)
-
-## CSV Output Format
-
-The CSV uses OpenFlights schema with these required columns populated:
-
-- **Date**: Flight date (YYYY-MM-DD)
-- **From**: Origin airport (IATA code)
-- **To**: Destination airport (IATA code)
-- **Flight_Number**: Airline code + number (e.g., "UA794")
-
-Other OpenFlights columns (Airline, Distance, Seat, Class, etc.) are intentionally left blank. OpenFlights should populate Airline and Distance automatically based on the already-populated fields. You can fill in the rest manually if desired.
 
