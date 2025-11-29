@@ -1,6 +1,6 @@
 # TripRip: TripIt Flight Exporter
 
-> ### A Python script that automatically extracts all your flight history from TripIt and exports it to CSV format using browser automation and AI.
+> ### A Python script that automatically extracts all your flight history from TripIt and exports it in an OpenFlights-compatible CSV format.
 >
 > 💰 **Minimal cost** (~$0.15 per 100 trips)  
 > ⏱️ **Minimal time** (~10 minutes for 100 trips, compared to hours manually copying and pasting your full flight history)  
@@ -54,9 +54,9 @@ Before you start, you'll need:
 ### 1. Download Files
 
 1. Create a folder called `triprip_export` for this project
-2. Download these files into that folder:
+2. Save these files into that folder:
     - `triprip.py` - the Python script
-    - `requirements.txt` - the dependencies file  
+    - `requirements.txt` - the dependencies file
 
 ### 2. Get Your Claude API Key
 
