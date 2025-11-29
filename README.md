@@ -1,11 +1,11 @@
 # TripRip: TripIt Flight Exporter
 
-> ### A Python script that automatically extracts all your flight history from TripIt and exports it in an OpenFlights-compatible CSV format.
->
-> 💰 **Minimal cost** (~$0.15 per 100 trips)  
-> ⏱️ **Minimal time** (~10 minutes for 100 trips, compared to hours manually copying and pasting your full flight history)  
-> 🤓 **Beginner-friendly** (Runs in visible browser so you can see what it's doing; easy to spot-check data against TripIt)  
-> 🔒 **Safe** (Credentials never stored, just typed into the browser)  
+### A Python script that automatically extracts all your flight history from TripIt and exports it in an OpenFlights-compatible CSV format.
+
+💰 **Minimal cost** (~$0.15 per 100 trips)  
+⏱️ **Minimal time** (~10 minutes for 100 trips, compared to hours manually copying and pasting your full flight history)  
+🤓 **Beginner-friendly** (Runs in visible browser so you can see what it's doing; easy to spot-check data against TripIt)  
+🔒 **Safe** (Credentials never stored, just typed into the browser)  
 
 ## What This Does
 
@@ -120,21 +120,21 @@ python triprip.py
 5. Table prints in terminal so you can spot-check it against your TripIt data
 6. CSV file saved as `flights_export.csv`
 
-## Output Format
+> ### 🤓 Tips
+> - **First run**: Start with just watching it process 10-20 trips to verify accuracy
+> - **Leave it running**: Don't close the browser or interact with it while it's working
+> - **Spot check:** Use the table printed in terminal to verify a few random flights against TripIt
+> - **Re-runs**: Safe to run multiple times; it always processes all trips from scratch
+> - **Errors**: If individual trips fail, they're skipped with an error message (check terminal output)
 
-The CSV uses OpenFlights schema with these columns populated:
+## CSV Output Format
+
+The CSV uses OpenFlights schema with these required columns populated:
 
 - **Date**: Flight date (YYYY-MM-DD)
 - **From**: Origin airport (IATA code)
 - **To**: Destination airport (IATA code)
 - **Flight_Number**: Airline code + number (e.g., "UA794")
 
-Other OpenFlights columns (Airline, Distance, Seat, Class, etc.) are intentionally left blank. OpenFlights should populate Airline and Distance automatically based on the other 4 populated fields. You can fill in the rest manually if desired.
+Other OpenFlights columns (Airline, Distance, Seat, Class, etc.) are intentionally left blank. OpenFlights should populate Airline and Distance automatically based on the already-populated fields. You can fill in the rest manually if desired.
 
-> ## 🤓 Tips
-> 
-> - **First run**: Start with just watching it process 10-20 trips to verify accuracy
-> - **Leave it running**: Don't close the browser or interact with it while it's working
-> - **Spot check:** Use the table printed in terminal to verify a few random flights against TripIt
-> - **Re-runs**: Safe to run multiple times; it always processes all trips from scratch
-> - **Errors**: If individual trips fail, they're skipped with an error message (check terminal output)
