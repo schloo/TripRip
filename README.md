@@ -1,11 +1,11 @@
 # TripRip: TripIt Flight Exporter
 
-### A Python script that automatically extracts all your flight history from TripIt and exports it to CSV format using browser automation and AI.
-
-💰 Minimal cost (~$0.15 per 100 trips)
-⏱️ Minimal time (~10 minutes for 100 trips, compared to hours manually copying and pasting your full flight history)
-🤓 Beginner-friendly (Runs in visible browser so you can see what it's doing; easy to spot-check data against TripIt)
-🔒 Safe (Credentials never stored, just typed into the browser)
+> ### A Python script that automatically extracts all your flight history from TripIt and exports it to CSV format using browser automation and AI.
+>
+> 💰 **Minimal cost** (~$0.15 per 100 trips)  
+> ⏱️ **Minimal time** (~10 minutes for 100 trips, compared to hours manually copying and pasting your full flight history)  
+> 🤓 **Beginner-friendly** (Runs in visible browser so you can see what it's doing; easy to spot-check data against TripIt)  
+> 🔒 **Safe** (Credentials never stored, just typed into the browser)  
 
 ## What This Does
 
@@ -13,9 +13,9 @@ This script:
 
 1. Opens **TripIt** in an automated browser
 2. Navigates through all your past trips on the TripIt website
-    - Uses a Python library called **Playwright** that opens/controls a Chrome window automatically on your behalf
+    > Uses a Python library called **Playwright** that opens/controls a Chrome window automatically on your behalf
 3. Uses **Anthropic Claude** for AI-powered data extraction of flight details from each trip page
-    - Uses **Haiku**, Claude’s fastest/cheapest model via the **Claude API**
+    > Uses **Haiku**, Claude’s fastest/cheapest model via the **Claude API**
 4. Exports everything to a CSV file compatible with OpenFlights
 
 ## Prerequisites
@@ -56,13 +56,7 @@ Before you start, you'll need:
 1. Create a folder called `triprip_export` for this project
 2. Download these files into that folder:
     - `triprip.py` - the Python script
-    - `requirements.txt` - the dependencies file, which should contain:
-        
-        ```xml
-        playwright==1.48.0
-        anthropic==0.39.0
-        ```
-        
+    - `requirements.txt` - the dependencies file  
 
 ### 2. Get Your Claude API Key
 
