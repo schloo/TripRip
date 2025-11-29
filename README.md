@@ -63,16 +63,21 @@ Before you start, you'll need:
 > 
 > ### Other Tips
 > Once you are able to run the script, keep these things in mind:
-> - **First run**: Start with just watching it process 10-20 trips to verify accuracy
-> - **Leave it running**: Don't close the browser or interact with it while it's working
-> - **Spot check:** Use the table printed in terminal to verify a few random flights against TripIt
-> - **Re-runs**: Safe to run multiple times; it always processes all trips from scratch
-> - **Errors**: If individual trips fail, they're skipped with an error message (check terminal output)
-> - **Getting throttled?**: If you have many trips (150+) and start seeing ERR_HTTP2_PROTOCOL_ERROR errors after ~100 trips, you're hitting TripIt's rate limits. To work around this:
->    1.  Note which page number the errors start at
->    2.  Open triprip.py and change START_PAGE = 1 to START_PAGE = [page_number] (e.g., START_PAGE = 14)
->    3.  Run the script again - it will skip the earlier pages and start from your specified page
->    4.  Combine the CSV files manually afterward
+> > **First run**: Start with just watching it process 10-20 trips to verify accuracy
+> > 
+> > **Leave it running**: Don't close the browser or interact with it while it's working
+> > 
+> > **Spot check:** Use the table printed in terminal to verify a few random flights against TripIt
+> > 
+> > **Re-runs**: Safe to run multiple times; it always processes all trips from scratch
+> > 
+> > **Errors**: If individual trips fail, they're skipped with an error message (check terminal output)
+> > 
+> > **Getting throttled?**: If you have many trips (150+) and start seeing `ERR_HTTP2_PROTOCOL_ERROR` errors after ~100 trips, you're hitting TripIt's rate limits. To work around this:
+> >    1.  Note which page number the errors start at
+> >    2.  Open `triprip.py` and change `START_PAGE = 1` to `START_PAGE = [page_number]` (e.g., `START_PAGE = 14`)
+> >    3.  Run the script again - it will skip the earlier pages and start from your specified page
+> >    4.  Combine the CSV files manually afterward
 
 ### 1. Download Files
 
