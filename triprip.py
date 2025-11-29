@@ -37,7 +37,12 @@ OUTPUT_FILE = "flights_export.csv"
 # TripIt URLs
 # Change this to "upcoming" if you want upcoming trips instead of past trips
 TRIPS_FILTER = "past"  # Options: "past" or "upcoming"
-TRIPS_LIST_URL = f"https://www.tripit.com/app/trips?trips_filter={TRIPS_FILTER}&page=1"
+
+# Pagination settings
+# Set START_PAGE to a higher number if you want to skip earlier pages and start from later trips
+# For example, if you've already exported pages 1-10, set START_PAGE = 11
+START_PAGE = 1  # Start from page 1 by default
+MAX_PAGES = None  # Set to a number (e.g., 5) to limit how many pages to process, or None for all pages
 
 # ============================================================================
 # HELPER FUNCTIONS
@@ -68,14 +73,24 @@ async def get_all_trip_urls(page):
     """
     Navigates through all pages of trips and collects URLs to each trip detail page.
     Handles pagination automatically by incrementing page number in URL.
+    Respects START_PAGE and MAX_PAGES configuration.
     """
     print("📋 Collecting trip URLs from all pages...")
     
     trip_urls = []
-    page_number = 1
+    page_number = START_PAGE
     base_url = "https://www.tripit.com/app/trips?trips_filter=past&page="
+    pages_processed = 0
+    
+    if START_PAGE > 1:
+        print(f"   Starting from page {START_PAGE} (skipping earlier pages)")
     
     while True:
+        # Check if we've hit the max pages limit
+        if MAX_PAGES is not None and pages_processed >= MAX_PAGES:
+            print(f"   Reached MAX_PAGES limit ({MAX_PAGES}), stopping pagination")
+            break
+            
         current_url = f"{base_url}{page_number}"
         print(f"   Scanning page {page_number}...")
         
@@ -121,9 +136,14 @@ async def get_all_trip_urls(page):
         
         # Move to next page
         page_number += 1
+        pages_processed += 1
         await asyncio.sleep(1)  # Be nice to the server
     
-    print(f"✓ Found {len(trip_urls)} total trips across {page_number - 1} page(s)\n")
+    total_pages = pages_processed
+    if START_PAGE > 1:
+        print(f"✓ Found {len(trip_urls)} total trips across pages {START_PAGE}-{START_PAGE + total_pages - 1}\n")
+    else:
+        print(f"✓ Found {len(trip_urls)} total trips across {total_pages} page(s)\n")
     return trip_urls
 
 
@@ -134,13 +154,29 @@ async def extract_flights_from_trip(page, trip_url, claude_client):
     """
     print(f"   Visiting: {trip_url}")
     
+    # Try up to 3 times if we get network errors
+    for attempt in range(3):
+        try:
+            # Navigate with a more lenient wait strategy
+            await page.goto(trip_url, wait_until="domcontentloaded", timeout=15000)
+            
+            # Wait for the trip content to load
+            await page.wait_for_selector('[data-cy="trip-date-span"]', timeout=10000)
+            await asyncio.sleep(2)  # Give it a moment for any dynamic content
+            
+            # If we got here, page loaded successfully
+            break
+            
+        except Exception as e:
+            if attempt < 2:  # Only retry twice (3 attempts total)
+                print(f"   ⚠ Attempt {attempt + 1} failed, retrying in 5 seconds...")
+                await asyncio.sleep(5)
+                continue
+            else:
+                print(f"   ✗ Error processing trip after 3 attempts: {str(e)}")
+                return []
+    
     try:
-        # Navigate with a more lenient wait strategy
-        await page.goto(trip_url, wait_until="domcontentloaded", timeout=15000)
-        
-        # Wait for the trip content to load
-        await page.wait_for_selector('[data-cy="trip-date-span"]', timeout=10000)
-        await asyncio.sleep(2)  # Give it a moment for any dynamic content
         
         # Get the trip name from the header
         trip_name = await page.evaluate('''
@@ -361,7 +397,7 @@ async def main():
     """
     
     print("\n" + "="*70)
-    print("TripRip - TripIt Flight Exporter")
+    print("TripRip: TripIt Flight Exporter")
     print("="*70 + "\n")
     
     # Validate API key
@@ -381,8 +417,9 @@ async def main():
         page = await browser.new_page()
         
         # Navigate to TripIt
-        print(f"🌐 Opening TripIt: {TRIPS_LIST_URL}")
-        await page.goto(TRIPS_LIST_URL)
+        trips_list_url = f"https://www.tripit.com/app/trips?trips_filter={TRIPS_FILTER}&page={START_PAGE}"
+        print(f"🌐 Opening TripIt: {trips_list_url}")
+        await page.goto(trips_list_url)
         
         # Wait for manual login
         await wait_for_manual_login(page)
@@ -404,8 +441,12 @@ async def main():
             flights = await extract_flights_from_trip(page, trip_url, claude_client)
             all_flights.extend(flights)
             
-            # Small delay to be respectful to the server
-            await asyncio.sleep(1)
+            # Longer delay to be more respectful to the server and avoid throttling
+            # Especially important after the first ~100 trips
+            if i > 100:
+                await asyncio.sleep(3)  # 3 second delay for older trips
+            else:
+                await asyncio.sleep(1.5)  # 1.5 second delay for recent trips
         
         # Save results
         await save_to_csv(all_flights, OUTPUT_FILE)
