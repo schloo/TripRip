@@ -1,14 +1,11 @@
 # TripRip: TripIt Flight Exporter
 
-<aside>
+### A Python script that automatically extracts all your flight history from TripIt and exports it to CSV format using browser automation and AI.
 
-A Python script that automatically extracts all your flight history from TripIt and exports it to CSV format using browser automation and AI.
-
-- Minimal cost (~$0.15 per 100 trips)
-- Minimal time (~10 minutes for 100 trips, compared to hours manually copying and pasting your full flight history)
-- Beginner-friendly (Runs in visible browser so you can see what it's doing; easy to spot-check data against TripIt)
-- Safe (Credentials never stored, just typed into the browser)
-</aside>
+💰 Minimal cost (~$0.15 per 100 trips)
+⏱️ Minimal time (~10 minutes for 100 trips, compared to hours manually copying and pasting your full flight history)
+🤓 Beginner-friendly (Runs in visible browser so you can see what it's doing; easy to spot-check data against TripIt)
+🔒 Safe (Credentials never stored, just typed into the browser)
 
 ## What This Does
 
@@ -16,9 +13,9 @@ This script:
 
 1. Opens **TripIt** in an automated browser
 2. Navigates through all your past trips on the TripIt website
-_Uses a Python library called **Playwright** that opens/controls a Chrome window automatically on your behalf_
+    - Uses a Python library called **Playwright** that opens/controls a Chrome window automatically on your behalf
 3. Uses **Anthropic Claude** for AI-powered data extraction of flight details from each trip page
-_Uses **Haiku**, Claude’s fastest/cheapest model via the **Claude API**_
+    - Uses **Haiku**, Claude’s fastest/cheapest model via the **Claude API**
 4. Exports everything to a CSV file compatible with OpenFlights
 
 ## Prerequisites
@@ -29,34 +26,30 @@ Before you start, you'll need:
 2. **Python** installed on your computer
 3. **TripIt account** with flight history to export
 4. **Anthropic API key** (sign up for a developer account at [platform.claude.com](https://platform.claude.com/))
-    - Note: You’ll need to buy some credits. The cost of running this script is only about $0.15 per 100 trips using Claude's cheapest model (Haiku), but I believe $5 is the minimum purchase.
+    - You’ll need to buy some credits. The cost of running this script is only about $0.15 per 100 trips using Claude's cheapest model (Haiku), but I believe $5 is the minimum purchase.
 
 ## Quick Start Guide
 
-<aside>
-
-### 🤓 Vibe coding for the first time?
-
-Copy and paste this into any LLM (Claude, ChatGPT, etc.), attaching the script and quick start guide, to get help.
-
-```xml
-I'm trying to use a Python script that exports flight history from TripIt. I have two documents:
-
-1. The Python script (triprip.py)
-2. The quick start guide
-
-Here's where I'm stuck: [setup, installation, running the script, etc.]
-
-Here's what I see in the terminal:
-[PASTE ANY ERROR MESSAGES HERE]
-
-My setup:
-- Operating System: [Mac/Windows/Linux]
-
-Can you help me understand what's wrong and what I should do next? Please explain in simple terms - I'm not very technical / experienced with coding.
-```
-
-</aside>
+> ### 🤓 Vibe coding for the first time?
+> 
+> Copy and paste this into any LLM (Claude, ChatGPT, etc.), attaching the script and quick start guide, to get help.
+> 
+> ```xml
+> I'm trying to use a Python script that exports flight history from TripIt. I have two documents:
+> 
+> 1. The Python script (triprip.py)
+> 2. The quick start guide
+> 
+> Here's where I'm stuck: [setup, installation, running the script, etc.]
+> 
+> Here's what I see in the terminal:
+> [PASTE ANY ERROR MESSAGES HERE]
+> 
+> My setup:
+> - Operating System: [Mac/Windows/Linux]
+> 
+> Can you help me understand what's wrong and what I should do next? Please explain in simple terms - I'm not very technical / experienced with coding.
+> ```
 
 ### 1. Download Files
 
@@ -144,13 +137,10 @@ The CSV uses OpenFlights schema with these columns populated:
 
 Other OpenFlights columns (Airline, Distance, Seat, Class, etc.) are intentionally left blank. OpenFlights should populate Airline and Distance automatically based on the other 4 populated fields. You can fill in the rest manually if desired.
 
-<aside>
-
-## 🤓 Tips
-
-- **First run**: Start with just watching it process 10-20 trips to verify accuracy
-- **Leave it running**: Don't close the browser or interact with it while it's working
-- **Spot check:** Use the table printed in terminal to verify a few random flights against TripIt
-- **Re-runs**: Safe to run multiple times; it always processes all trips from scratch
-- **Errors**: If individual trips fail, they're skipped with an error message (check terminal output)
-</aside>
+> ## 🤓 Tips
+> 
+> - **First run**: Start with just watching it process 10-20 trips to verify accuracy
+> - **Leave it running**: Don't close the browser or interact with it while it's working
+> - **Spot check:** Use the table printed in terminal to verify a few random flights against TripIt
+> - **Re-runs**: Safe to run multiple times; it always processes all trips from scratch
+> - **Errors**: If individual trips fail, they're skipped with an error message (check terminal output)
